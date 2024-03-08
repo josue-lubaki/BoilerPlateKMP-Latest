@@ -8,6 +8,4 @@ import com.russhwolf.settings.Settings
  * version : 1.0.0
  */
 
-expect class MultiplatformSettingsWrapper {
-    fun createSettings(): Settings
-}
+expect fun createSettings(context : Any? = null): Settings

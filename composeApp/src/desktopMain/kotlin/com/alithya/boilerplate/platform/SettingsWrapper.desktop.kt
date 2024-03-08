@@ -10,9 +10,7 @@ import java.util.prefs.Preferences
  * version : 1.0.0
  */
 
-actual class MultiplatformSettingsWrapper {
-    actual fun createSettings(): Settings {
-        val delegate: Preferences = Preferences.userRoot()
-        return PreferencesSettings(delegate)
-    }
+actual fun createSettings(context : Any?): Settings {
+    val delegate: Preferences = Preferences.userRoot()
+    return PreferencesSettings(delegate)
 }

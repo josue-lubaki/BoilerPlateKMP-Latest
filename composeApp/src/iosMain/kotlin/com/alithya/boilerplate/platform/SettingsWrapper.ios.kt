@@ -10,9 +10,7 @@ import platform.Foundation.NSUserDefaults
  * version : 1.0.0
  */
 
-actual class MultiplatformSettingsWrapper {
-    actual fun createSettings(): Settings {
-        val delegate = NSUserDefaults.standardUserDefaults
-        return NSUserDefaultsSettings(delegate)
-    }
+actual fun createSettings(context : Any?) : Settings {
+    val delegate = NSUserDefaults.standardUserDefaults
+    return NSUserDefaultsSettings(delegate)
 }

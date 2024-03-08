@@ -294,7 +294,7 @@ private fun Forms(
                 text = "Log In",
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.displayMedium,
-                )
+            )
 
             if (loginErrorMessage != null) {
                 AlertMessage(message = loginErrorMessage)
@@ -317,14 +317,15 @@ private fun Forms(
             )
 
             ButtonPrimary(
-                modifier =
-            if (!isLandScape) {
-                Modifier.padding(top = MaterialTheme.dimensions.medium)
-            } else {
-                Modifier
-                    .width(MaterialTheme.dimensions.buttonWidthDefault)
-                    .padding(top = MaterialTheme.dimensions.medium)
-                   },
+                modifier = Modifier.then(
+                    if (!isLandScape) {
+                        Modifier.padding(top = MaterialTheme.dimensions.medium)
+                    } else {
+                        Modifier
+                            .width(MaterialTheme.dimensions.buttonWidthDefault)
+                            .padding(top = MaterialTheme.dimensions.medium)
+                    }
+                ),
                 text = "LOGIN",
                 testTag = "loginSignInButtonQa",
                 onClick = { onSignInClicked(email.value, password.value) }
