@@ -42,9 +42,6 @@ class CLI : CliktCommand(){
         val oldImportPattern1 = "import ${rootProjectName.lowercase()}"
         val newImportPattern1 = "import ${appName.lowercase()}"
 
-        val oldImportPattern2 = "import $actualPackageName."
-        val newImportPattern2 = "import $packageName."
-
         echo("Step 2 : setupComposeApp changes...")
         echo("Processing : androidApp changes...")
         val oldAndroidMain = File("composeApp/src/androidMain/kotlin/${actualPackageName.replace(".", "/")}")
@@ -62,9 +59,11 @@ class CLI : CliktCommand(){
                 val content = it.readText()
                 it.delete()
                 it.createNewFile()
-                it.writeText(content.replace(actualPackageName, packageName))
-                it.writeText(content.replace(oldImportPattern1, newImportPattern1))
-                it.writeText(content.replace(oldImportPattern2, newImportPattern2))
+
+                val contentModified = content
+                    .replace(actualPackageName, packageName)
+                    .replace(oldImportPattern1, newImportPattern1)
+                it.writeText(contentModified)
             }
         echo("Processing : androidApp done")
 
@@ -82,9 +81,10 @@ class CLI : CliktCommand(){
                 val content = it.readText()
                 it.delete()
                 it.createNewFile()
-                it.writeText(content.replace(actualPackageName, packageName))
-                it.writeText(content.replace(oldImportPattern1, newImportPattern1))
-                it.writeText(content.replace(oldImportPattern2, newImportPattern2))
+                val contentModified = content
+                    .replace(actualPackageName, packageName)
+                    .replace(oldImportPattern1, newImportPattern1)
+                it.writeText(contentModified)
             }
         echo("Processing : commonMainApp done")
 
@@ -102,9 +102,11 @@ class CLI : CliktCommand(){
                 val content = it.readText()
                 it.delete()
                 it.createNewFile()
-                it.writeText(content.replace(actualPackageName, packageName))
-                it.writeText(content.replace(oldImportPattern1, newImportPattern1))
-                it.writeText(content.replace(oldImportPattern2, newImportPattern2))
+
+                val contentModified = content
+                    .replace(actualPackageName, packageName)
+                    .replace(oldImportPattern1, newImportPattern1)
+                it.writeText(contentModified)
             }
         echo("Processing : desktopMainApp done")
 
@@ -122,9 +124,11 @@ class CLI : CliktCommand(){
                 val content = it.readText()
                 it.delete()
                 it.createNewFile()
-                it.writeText(content.replace(actualPackageName, packageName))
-                it.writeText(content.replace(oldImportPattern1, newImportPattern1))
-                it.writeText(content.replace(oldImportPattern2, newImportPattern2))
+
+                val contentModified = content
+                    .replace(actualPackageName, packageName)
+                    .replace(oldImportPattern1, newImportPattern1)
+                it.writeText(contentModified)
             }
         echo("Processing : iosMainApp done")
 
@@ -155,9 +159,11 @@ class CLI : CliktCommand(){
                 val content = it.readText()
                 it.delete()
                 it.createNewFile()
-                it.writeText(content.replace(actualPackageName, packageName))
-                it.writeText(content.replace(oldImportPattern1, newImportPattern1))
-                it.writeText(content.replace(oldImportPattern2, newImportPattern2))
+
+                val contentModified = content
+                    .replace(actualPackageName, packageName)
+                    .replace(oldImportPattern1, newImportPattern1)
+                it.writeText(contentModified)
             }
         echo("Processing : wasmJsMain done")
         echo("Step 2 --> DONE")
