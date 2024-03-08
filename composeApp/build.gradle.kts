@@ -182,6 +182,11 @@ buildkonfig {
     }
 }
 
+// fix for Android Studio canary latest version
+task("testClasses").doLast {
+    println("This is a dummy testClasses task")
+}
+
 //compose.experimental {
 //    web.application {}
 //}
