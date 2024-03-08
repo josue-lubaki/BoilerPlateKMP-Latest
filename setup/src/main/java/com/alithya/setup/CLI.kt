@@ -25,9 +25,6 @@ class CLI : CliktCommand(){
     private val appName : String by option().prompt("Enter the name of your app (example : MyAwesomeApp)")
     private val packageName : String by option().prompt("Enter the package name of your app (example : com.example.app)")
 
-    private val importPattern = "import ${rootProjectName.lowercase()}"
-    private val newImportPattern = "import ${appName.lowercase()}"
-
     override fun run() {
         echo("Step 1 : composeApp changes...")
         val composeAppBuildGradleContent = composeAppBuildGradle.readText()
@@ -42,6 +39,9 @@ class CLI : CliktCommand(){
     }
 
     private fun setupComposeApp(packageName: String) {
+        val importPattern = "import ${rootProjectName.lowercase()}"
+        val newImportPattern = "import ${appName.lowercase()}"
+
         echo("Step 2 : setupComposeApp changes...")
         echo("Processing : androidApp changes...")
         val oldAndroidMain = File("composeApp/src/androidMain/kotlin/${actualPackageName.replace(".", "/")}")
