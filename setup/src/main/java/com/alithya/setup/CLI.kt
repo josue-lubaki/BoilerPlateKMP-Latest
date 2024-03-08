@@ -25,6 +25,9 @@ class CLI : CliktCommand(){
     private val appName : String by option().prompt("Enter the name of your app (example : MyAwesomeApp)")
     private val packageName : String by option().prompt("Enter the package name of your app (example : com.example.app)")
 
+    private val importPattern = "import ${rootProjectName.lowercase()}"
+    private val newImportPattern = "import ${appName.lowercase()}"
+
     override fun run() {
         echo("Step 1 : composeApp changes...")
         val composeAppBuildGradleContent = composeAppBuildGradle.readText()
@@ -32,13 +35,9 @@ class CLI : CliktCommand(){
         composeAppBuildGradle.createNewFile()
         composeAppBuildGradle.writeText(composeAppBuildGradleContent.replace(actualPackageName, packageName))
         echo("Step 1 : DONE")
-
         setupComposeApp(packageName)
-
         setupSettingsGradle(appName)
-
-//        GitAddCommitCommand("test commit message, setup app").main(emptyArray())
-
+        GitAddCommitCommand("setup app completed successfully").main(emptyArray())
         echo("Processing --> DONE")
     }
 
@@ -61,6 +60,7 @@ class CLI : CliktCommand(){
                 it.delete()
                 it.createNewFile()
                 it.writeText(content.replace(actualPackageName, packageName))
+                it.writeText(content.replace(importPattern, newImportPattern))
             }
         echo("Processing : androidApp done")
 
@@ -79,6 +79,7 @@ class CLI : CliktCommand(){
                 it.delete()
                 it.createNewFile()
                 it.writeText(content.replace(actualPackageName, packageName))
+                it.writeText(content.replace(importPattern, newImportPattern))
             }
         echo("Processing : commonMainApp done")
 
@@ -97,6 +98,7 @@ class CLI : CliktCommand(){
                 it.delete()
                 it.createNewFile()
                 it.writeText(content.replace(actualPackageName, packageName))
+                it.writeText(content.replace(importPattern, newImportPattern))
             }
         echo("Processing : desktopMainApp done")
 
@@ -115,13 +117,26 @@ class CLI : CliktCommand(){
                 it.delete()
                 it.createNewFile()
                 it.writeText(content.replace(actualPackageName, packageName))
+                it.writeText(content.replace(importPattern, newImportPattern))
             }
         echo("Processing : iosMainApp done")
 
         echo("Processing : wasmJsMain changes...")
         val path = File("composeApp/src/wasJsMain/kotlin/${actualPackageName.replace(".", "/")}")
-        val oldWasmJsMain = if (path.exists()) path else return
-        val newWasmJsMain = if(oldWasmJsMain.isFile) File("composeApp/src/wasJsMain/kotlin/${packageName.replace(".", "/")}") else return
+        val oldWasmJsMain =
+            if (path.exists()) path
+            else {
+                echo("Processing : wasmJsMain done")
+                echo("Step 2 --> DONE")
+                return
+            }
+        val newWasmJsMain =
+            if(oldWasmJsMain.isFile) File("composeApp/src/wasJsMain/kotlin/${packageName.replace(".", "/")}")
+            else {
+                echo("Processing : wasmJsMain done")
+                echo("Step 2 --> DONE")
+                return
+            }
         newWasmJsMain.mkdirs()
         oldWasmJsMain.copyRecursively(newWasmJsMain, overwrite = false)
         oldWasmJsMain.deleteRecursively()
@@ -134,6 +149,7 @@ class CLI : CliktCommand(){
                 it.delete()
                 it.createNewFile()
                 it.writeText(content.replace(actualPackageName, packageName))
+                it.writeText(content.replace(importPattern, newImportPattern))
             }
         echo("Processing : wasmJsMain done")
         echo("Step 2 --> DONE")
@@ -163,8 +179,20 @@ class GitAddCommitCommand(private val message: String) : CliktCommand() {
         val addExitCode = gitAddProcess.waitFor()
         if (addExitCode != 0) {
             echo(message = "git add failed with exit code : $addExitCode")
+        }
+
+        // Generate new Resource file
+        val res = ProcessBuilder("./gradlew", "generateComposeResClass")
+        val resProcess = res
+            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+            .redirectError(ProcessBuilder.Redirect.INHERIT)
+            .start()
+        val resProcessExitCode = resProcess.waitFor()
+        if (resProcessExitCode >= -1){
+            echo("generateComposeResClass task completed successfully")
             return
         }
+
 //
 //        val gitCommitProcess = gitCommit
 //            .redirectOutput(ProcessBuilder.Redirect.INHERIT)
