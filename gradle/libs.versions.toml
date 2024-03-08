@@ -26,6 +26,9 @@ accompanistVersion = "0.32.0"
 windowSizeVersion = "0.3.1"
 napierVersion = "2.6.1"
 kotlinx-coroutines = "1.7.3"
+jetbrainsKotlinJvmVersion = "1.9.0"
+cliktVersion = "3.5.2"
+kotlinxCliVersion = "0.3.5"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -80,9 +83,14 @@ kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-
 kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
 konfigPlugin = { group = "com.codingfeline.buildkonfig", name = "buildkonfig-gradle-plugin", version.ref = "konfigVersion" }
 
+# Setup CLI
+clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "cliktVersion" }
+kotlinx-cli = { module = "org.jetbrains.kotlinx:kotlinx-cli", version.ref = "kotlinxCliVersion" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 konfig = { id = "com.codingfeline.buildkonfig", version.ref = "konfigVersion" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvmVersion" }
