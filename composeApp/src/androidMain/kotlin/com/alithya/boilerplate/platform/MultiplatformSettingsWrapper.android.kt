@@ -12,7 +12,7 @@ import com.russhwolf.settings.SharedPreferencesSettings
 
 actual class MultiplatformSettingsWrapper(private val context: Context) {
     actual fun createSettings(): Settings {
-        val delegate = context.getSharedPreferences("boilerPlate_preferences", Context.MODE_PRIVATE)
+        val delegate = context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
         return SharedPreferencesSettings(delegate)
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import boilerplate.composeapp.generated.resources.Res
+import boilerplate.composeapp.generated.resources.app_name
 import boilerplate.composeapp.generated.resources.ic_alithya
 import boilerplate.composeapp.generated.resources.ic_alithya_dark
 import com.alithya.boilerplate.core.presentation.theme.BRAND_HEIGHT
@@ -25,6 +26,7 @@ import com.alithya.boilerplate.core.presentation.theme.BRAND_WIDTH_LANDSCAPE
 import com.alithya.boilerplate.core.presentation.theme.dimensions
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -48,7 +50,7 @@ fun Brand(
             contentDescription = "logo",
         )
         Text(
-            text = "SEQUOIA",
+            text = stringResource(Res.string.app_name).uppercase(),
             style = TextStyle(
                 fontSize = if(!isLandScape) 16.sp else 36.sp,
                 fontWeight = FontWeight.Light
