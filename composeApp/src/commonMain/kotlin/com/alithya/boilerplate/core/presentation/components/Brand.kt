@@ -23,7 +23,6 @@ import com.alithya.boilerplate.core.presentation.theme.BRAND_HEIGHT_LANDSCAPE
 import com.alithya.boilerplate.core.presentation.theme.BRAND_WIDTH
 import com.alithya.boilerplate.core.presentation.theme.BRAND_WIDTH_LANDSCAPE
 import com.alithya.boilerplate.core.presentation.theme.dimensions
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -32,8 +31,7 @@ import org.jetbrains.compose.resources.painterResource
 fun Brand(
     modifier: Modifier = Modifier,
     isLandScape: Boolean = false,
-    ) {
-    val isDarkMode = isSystemInDarkTheme()
+) {
     Column(
         modifier = modifier
             .padding(MaterialTheme.dimensions.small),
@@ -46,11 +44,7 @@ fun Brand(
                     width = if(!isLandScape) BRAND_WIDTH else BRAND_WIDTH_LANDSCAPE,
                     height = if(!isLandScape) BRAND_HEIGHT else BRAND_HEIGHT_LANDSCAPE
                 ),
-            painter =
-//                if(isDarkMode) painterResource(DrawableResource("ic_alithya.xml"))
-                if(isDarkMode) painterResource(Res.drawable.ic_alithya)
-                else painterResource(Res.drawable.ic_alithya_dark),
-//                else painterResource(DrawableResource("ic_alithya_dark.xml")),
+            painter = painterResource(Res.drawable.ic_alithya),
             contentDescription = "logo",
         )
         Text(
